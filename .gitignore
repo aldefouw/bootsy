@@ -8,3 +8,4 @@ spec/dummy/.sass-cache
 spec/dummy/public/bootsy_uploads
 spec/dummy/public/uploads
 coverage/
+*.idea
