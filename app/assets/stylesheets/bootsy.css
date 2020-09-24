@@ -1,6 +1,7 @@
 /*
   Bootstrap-submenu
 */
+@import 'wysiwyg-color.css';
 
 .dropdown-submenu {
   position:relative;
