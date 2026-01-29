@@ -30,18 +30,35 @@
       <li role="presentation" class="divider"></li>
 
       <li role="presentation">
-          <%= link_to image,
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: t('bootsy.image.confirm.destroy')
-                },
-                tabindex: '-1',
-                role: 'menuitem',
-                class: 'destroy-btn' do %>
-          <i class="icon-trash"></i>
 
-          <%= t('bootsy.action.destroy') %>
-        <% end %>
+        <a href="#"
+           class="destroy-btn"
+           data-url="<%= image_gallery_image_path(@gallery, image) %>">
+          <i class="icon-trash"></i> <%= t('bootsy.action.destroy') %>
+        </a>
+
+        <script>
+            document.addEventListener("click", function(e) {
+                const btn = e.target.closest(".destroy-btn");
+                if (!btn) return;
+
+                e.preventDefault();
+                if (!confirm("<%= j t('bootsy.image.confirm.destroy') %>")) return;
+
+                fetch(btn.dataset.url, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                        "Accept": "application/json"
+                    }
+                }).then(resp => resp.json())
+                    .then(data => {
+                        const el = document.querySelector(`[data-id="${data.id}"]`);
+                        if (el) el.remove();
+                    });
+            });
+        </script>
+
       </li>
     <% end %>
   </ul>
