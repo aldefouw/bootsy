@@ -53,10 +53,9 @@ module Bootsy
     #         be rendered.
     def image_markup(image)
       render_to_string(
-        file: 'bootsy/images/_image',
+        partial: 'bootsy/images/image',
         formats: [:html],
-        locals: { image: image },
-        layout: false
+        locals: { image: image }
       )
     end
 
@@ -67,10 +66,9 @@ module Bootsy
     #           the image will be uploaded to.
     def new_image_markup(gallery)
       render_to_string(
-        file: 'bootsy/images/_new',
+        partial: 'bootsy/images/new',
         formats: [:html],
-        locals: { gallery: gallery, image: gallery.images.new },
-        layout: false
+        locals: { gallery: gallery, image: gallery.images.new }
       )
     end
 
